@@ -58,7 +58,7 @@ void extL(string a) //기하 : https://www.GIHA.com/
 		lm[h] = vt[i];
 	}
 }
-bool veri(string a)
+bool veri(string &a)
 {
 	for (int i = 0; i < a.length(); ++i)
 		if (!('0' <= a[i] && a[i] <= '9'))
@@ -141,7 +141,7 @@ int main()
 	stringstream ss;
 	ss << file.rdbuf();
 	string t = ss.str();
-	t = t.substr(t.find("##########") + 90); //이러면 t는 본문 내용만 딱(>>시간표\n뒤부터)
+	t = t.substr(t.find("##########") + 90); //이러면 t는 본문 내용만 // 딱 >>시간표\n뒤부터
 
 	p1 = t.find("*****");
 	string a = t.substr(0, p1); //a는 시간표 내용
@@ -165,10 +165,8 @@ int main()
 		tt += td[2] * 60;
 		tep.second = tt;
 		ct.push_back(tep);
-		if (i != td[5] - 1) //i는 제로 스케일
-			tt += td[3] * 60;
-		else
-			tt += td[4] * 60;
+		if (i != td[5] - 1)	tt += td[3] * 60;
+		else  tt += td[4] * 60;
 	}
 
 	if (v[TIME.tm_wday].empty())
@@ -181,6 +179,7 @@ int main()
 	{
 		now = time(NULL);
 		TIME = *localtime(&now); //시간 동기화
+
 		system("cls");
 		printf("-------------------------------줌 자동 연결기-------------------------------\n|                                                                          |\n|   이 프로그램은 시간에 맞게 자동으로 줌에 들어가지는 프로그램 입니다.    |\n|                                                                          |\n|               줌에 들어가신 후 출석체크는 본인의 몫입니다.               |\n|                                                                          |\n|            프로그램에 오류가 생겼을 경우 껏다 켜주시면 됩니다.           |\n|                                                                          |\n|      코드를 수정하실 필요없고, For_Zoom_Connector.txt를 수정하세요.      |\n|                                                                          |\n----------------------------------------------------------By 조형래---------\n");
 		cout << "\n오늘은 " << TIME.tm_year + 1900 << "년 " << TIME.tm_mon << "월 " << TIME.tm_mday << "일 " << weak[TIME.tm_wday] << " 입니다.";
@@ -201,7 +200,7 @@ int main()
 
 		for (int classN = 1; classN <= v[TIME.tm_wday].size(); ++classN)
 		{
-			if (ct[classN].first <= cut && cut < ct[classN].second) //수업 시간 출력
+			if (ct[classN].first <= cut && cut < ct[classN].second)
 				printf("--------------------------------->>  ");
 			printf("%d교시 : %02d:%02d ~ %02d:%02d    ", classN, ct[classN].first / 3600, (ct[classN].first % 3600) / 60, ct[classN].second / 3600, (ct[classN].second % 3600) / 60);
 			cout << v[TIME.tm_wday][classN - 1]; //v[]의 내용은 제로 스케일
@@ -230,12 +229,15 @@ int main()
 			}
 
 			printf("\n");
-			if (classN != v[TIME.tm_wday].size() && ct[classN].second <= cut && cut < ct[classN + 1].first) //휴식 시간 출력
-				printf("--------------------------------->>  ");
-			if (classN != td[5] && classN != v[TIME.tm_wday].size())
-				cout << "------쉬는시간-------\n";
-			else if (classN == td[5] && classN != v[TIME.tm_wday].size())
-				cout << "------점심시간-------\n";
+			if (classN != v[TIME.tm_wday].size())
+			{
+				if (ct[classN].second <= cut && cut < ct[classN + 1].first) //휴식 시간 출력
+					printf("--------------------------------->>  ");
+				if (classN != td[5])
+					cout << "------쉬는시간-------\n";
+				else
+					cout << "------점심시간-------\n";
+			}
 		}
 		if (cut > ct[v[TIME.tm_wday].size()].second)
 		{
