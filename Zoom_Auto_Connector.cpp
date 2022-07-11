@@ -111,7 +111,6 @@ int main()
 {
 	ifstream file("For_Zoom_Connector.txt");
 	string dac;
-	string sys = "start ";
 	if (file.is_open())
 	{
 		printf("-------------------------------줌 자동 연결기-------------------------------\n|                                                                          |\n|   이 프로그램은 시간에 맞게 자동으로 줌에 들어가지는 프로그램 입니다.    |\n|                                                                          |\n|               줌에 들어가신 후 출석체크는 본인의 몫입니다.               |\n|                                                                          |\n|            프로그램에 오류가 생겼을 경우 껏다 켜주시면 됩니다.           |\n|                                                                          |\n|      코드를 수정하실 필요없고, For_Zoom_Connector.txt를 수정하세요.      |\n|                                                                          |\n----------------------------------------------------------By 조형래---------\n");
@@ -200,8 +199,7 @@ int main()
 
 		for (int classN = 1; classN <= v[TIME.tm_wday].size(); ++classN)
 		{
-			if (ct[classN].first <= cut && cut < ct[classN].second)
-				printf("--------------------------------->>  ");
+			if (ct[classN].first <= cut && cut < ct[classN].second)	printf("--------------------------------->>  ");
 			printf("%d교시 : %02d:%02d ~ %02d:%02d    ", classN, ct[classN].first / 3600, (ct[classN].first % 3600) / 60, ct[classN].second / 3600, (ct[classN].second % 3600) / 60);
 			cout << v[TIME.tm_wday][classN - 1]; //v[]의 내용은 제로 스케일
 
