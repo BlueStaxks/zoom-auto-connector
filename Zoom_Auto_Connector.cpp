@@ -136,7 +136,6 @@ int main()
 	for (i = 0; i < 7; ++i)
 		if (dac.find(dacf[i]) != string::npos)    TIME.tm_wday = i;		//다른 요일 수업할 때 인식하는 프로그램
 
-	vector<vector<string>> v;
 	stringstream ss;
 	ss << file.rdbuf();
 	string t = ss.str();
@@ -144,7 +143,7 @@ int main()
 
 	p1 = t.find("*****");
 	string a = t.substr(0, p1); //a는 시간표 내용
-	v = extV(a);
+	vector<vector<string>> v = extV(a);
 
 	p2 = t.find(">>과목 링크\n");;
 	p3 = t.find("*****", p2 + 12);
