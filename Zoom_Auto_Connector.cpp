@@ -221,7 +221,6 @@ int main()
 					strcpy(tchar, sys.c_str());
 					system(tchar);
 					cout << "   --" << classN << "교시 " << v[TIME.tm_wday][classN - 1] << " 열리는 중--" << '\a';
-					cout << '\a';
 				}
 			}
 
